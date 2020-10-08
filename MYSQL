@@ -1,0 +1,39 @@
+  [** MYSQL **]
+    
+    [테이블 생성법]
+    ex) CREATE TABL test(
+          id VARCHAR2(20) primary key,
+          pwd NUMBER(5),
+          name VARCHAR2(50)
+          addr VARCHAR2(50),
+          email VRACHAR2(100)
+        );
+    
+    
+    -------------------------------------------------------------------
+    
+    [**키의 종류**]
+      1) 기본키(primary key)
+         -고유한 식별자로써, 속성의 중복을 방지하기 위한 키워드 
+          예) id VARCHAR2(20) primary key - > 같은 아이디를 입력시 가입이 불가능하다
+          
+      2) 후보키(candidate key)
+         -id, pwd, name 과 같이 기본키가 될 자격이 있는 나머지 컬럼들
+          (즉 , Column Name 에 속해 있는것들)
+           
+      3) 외래키(foregin key)
+         -한 테이블에 속성이 다른 테이블의 기본키가 되는 것.
+         
+    -------------------------------------------------------------------
+     
+     1) JOIN : 테이블과 테이블간의 연결성을 의미
+     
+      ex) 각 부서가 위치한 도시를 출력
+          (locations 테이블의 location_id와 departments 테이블의 location_id가 일치하는 지역을 검색하여 출력)
+          -> SELECT d.department_id, d.department_name, l.city        -- 별칭.후보키를 참조한다 라는 코드.
+            FROM departments d, locations l             -- departments d 같이 참조할 별칭을 지정해 줘야한다.
+            WHERE d.location_id = l.location_id;
+            
+   
+        
+     
