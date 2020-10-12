@@ -107,11 +107,13 @@
          3) 테이블 생성(CREATE)
          
             ex) 회원정보를 저장하는 테이블 만들기
-              CREATE TABLE member_t(
+               ( unique= 중복 금지/ not null = 빈값 금지 )
+               
+               CREATE TABLE member_t(
                idx NUMBER(3) primary key,
-               id VARCHAR2(30) unique,   --중복 금지 
+               id VARCHAR2(30) unique,
                pwd VARCHAR2(50) not null, 
-               name VARCHAR2(30) not null,  -- 빈값 금지
+               name VARCHAR2(30) not null,
                email VARCHAR2(50) unique,
                phone VARCHAR2(20) unique
               );
@@ -132,3 +134,36 @@
          8) 테이블에 자원 추가(INSERT)
             INSERT INTO member_t VALUES(1, 'hong', '1111', 'hong', 'h@naver.com', '010-1111-1111');
             commit; -- 물리적으로 데이터를 갱신하는 코드 
+            
+         9) 테이블에 자원 수정(UPDATE)
+          : UPDATE절에는 보통 WHERE절이 붙는다. (전체를 다 바꿀게 아니기 떄문에)
+            [구조]
+            UPDATE 테이블명 
+            SET 변경할컬럼명 = 변경할값
+            WHERE 변경할 row;
+            --------------------------           
+            UPDATE member_t 
+            SET pwd = '1234',email = 'hong@k.com'
+            WHERE idx = 1;
+            
+            COMMIT; 
+            
+         10) 자원 삭제(DELETE)
+          : [구조]
+            DELETE FROM 테이블명  -- DELETE는 *를 절대 쓰지않는다
+            WHERE 조건식;
+            --------------------------
+            DELETE FROM member_t
+            WHERE idx=1;
+            
+         11) 시퀀스
+            : 테이블에 값을 저장할때, 순차적인 숫자가 자동으로 저장되도록 하는 객체 
+              CREATE sequence member_seq; --member_seq라는 이름의 시퀀스를 생성
+              --START WITH 3; -- 시퀀스의 시작위치를 정하고 싶다면 이렇게..
+            
+              --시퀀스를 사용한 데이터 INSERT
+              INSERT INTO member_t 
+              VALUES(member_seq.nextVal, 'hong', '1111', 'hong', 'h@naver.com', '010-1111-1111');
+         12) 시퀀스 삭제
+            DROP sequence 시퀀스명;
+            
